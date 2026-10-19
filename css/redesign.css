@@ -1,0 +1,236 @@
+/* Declaring Our Tech Futures — redesign layer. Loads after site.css. Colours, type and radii come from ds/dotf/tokens.css.
+   Motion: CSS scroll-driven animations only. Base styles are the finished state, so the page reads fully wherever
+   scroll timelines are unsupported, in static previews, and under reduced motion. */
+
+/* ---------- Typography: redesign-only font swap ----------
+   Scoped to .r-page so ds/dotf/tokens.css (and Main.dc.html, which shares it) are untouched.
+   - Mazius Display: H1, section headings, people's names, large pull quotes. Regular is the default; Bold is only
+     for a heading that has to hold up small on a coloured band; Extra Italic carries one italic headline phrase
+     and pull quotes (it's registered at the same weight as Regular/Bold so existing italic + font-display rules
+     — e.g. the advisor pull quote — pick it up automatically).
+   - Inter: bios, lead paragraphs, body copy, form/hint/dialog text. Loaded from Google Fonts below.
+   - Optician Sans: eyebrows, buttons, header links, dates, photo credits, role lines, form labels — always
+     uppercase with wide tracking already, which is how the eyebrow/chip/label/button component styles are set.
+   Redefining --font-display/--font-sans/--font-mono here cascades into every dotf-* component class that already
+   reads those tokens (dotf-eyebrow, dotf-btn, dotf-nav, dotf-chip, dotf-field__label, dotf-person__role, …) for
+   anything rendered inside .r-page. Form.dc.html and BioDialog.dc.html are separate documents shared with the
+   original page, so they're intentionally left out of this swap. */
+@font-face{font-family:"Mazius Display";src:url("fonts/MaziusDisplay-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Mazius Display";src:url("fonts/MaziusDisplay-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Mazius Display";src:url("fonts/MaziusDisplay-ExtraItalic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Mazius Display";src:url("fonts/MaziusDisplay-BoldItalic.woff2") format("woff2");font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:"Optician Sans";src:url("fonts/OpticianSans-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+.r-page{
+  --font-display:"Mazius Display","Iowan Old Style",Georgia,serif;
+  --font-sans:"Inter","Helvetica Neue",Arial,sans-serif;
+  --font-mono:"Optician Sans","DM Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+
+/* ---------- Flatten: hairlines and light instead of drop shadows ---------- */
+.r-page .dotf-card,.r-page .s-form,.r-page .s-success{box-shadow:none}
+.r-page .s-form,.r-page .s-success{border:1px solid var(--line)}
+.r-page .s-dialog{box-shadow:0 1px 0 var(--line)}
+
+/* Hover light: a soft radial glow that follows the pointer, painted between the box's fill and its content */
+.r-glow{position:relative;isolation:isolate;overflow:hidden}
+.r-glow::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(520px circle at var(--mx,50%) var(--my,30%),rgba(255,255,255,.7),rgba(255,255,255,0) 62%);opacity:0;transition:opacity .5s ease}
+.r-glow:hover::after{opacity:1}
+.r-glow--warm::after{background:radial-gradient(560px circle at var(--mx,50%) var(--my,30%),rgba(255,236,214,.42),rgba(255,236,214,0) 60%)}
+
+/* ---------- Header ---------- */
+.r-page .s-nav{position:relative;overflow:hidden;box-shadow:none;border:1px solid var(--line);background:color-mix(in srgb,var(--surface-raised) 82%,transparent);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2)}
+.r-progress{position:absolute;left:24px;right:24px;bottom:0;height:1.5px;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);opacity:.9}
+
+/* ---------- Shared pieces ---------- */
+.r-band{padding:144px 0}
+.r-band--surface{background:var(--surface)}
+.r-band--deep{background:var(--deep);color:var(--on-deep)}
+.r-eyebrow{margin:0}
+.r-band--deep .dotf-eyebrow{color:var(--accent-cool)}
+.r-statement{margin:40px 0 0;font:400 60px/66px var(--font-display);letter-spacing:-.018em;max-width:34ch;text-wrap:balance}
+.r-statement--wide{max-width:24ch}
+.r-statement span{display:inline}
+.r-display{margin:0;font:400 96px/90px var(--font-display);letter-spacing:-.025em;text-wrap:balance}
+.r-rule{border:0;border-top:1px solid var(--line);margin:0}
+
+/* ---------- Hero ---------- */
+.r-hero{position:relative;padding:136px 0 120px}
+.r-hero__inner{position:relative;z-index:1;display:flex;flex-direction:column;gap:40px}
+.r-h1{margin:0;font:400 152px/136px var(--font-display);letter-spacing:-.035em;max-width:8.2ch;text-wrap:balance}
+.r-tagline{margin:0;font:400 44px/52px var(--font-display);letter-spacing:-.01em;color:var(--text-muted)}
+.r-hero__cols{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:40px 80px;align-items:start;margin-top:40px;padding-top:40px;border-top:1px solid var(--line)}
+.r-hero__side{display:flex;flex-direction:column;gap:32px}
+.r-hero .s-lead{font:300 24px/36px var(--font-sans);max-width:none}
+.r-hero__art{position:absolute;right:48px;top:40px;width:520px;height:560px;pointer-events:none}
+/* Cluster the decorative shapes so they overlap one another around a shared centre, instead of the scattered
+   diagonal layout they use elsewhere, then lay the uploaded people photo over them, cropped to the ring. */
+.r-hero__blob{position:absolute;left:50px;top:90px;width:420px;height:420px;border-radius:50%;background:var(--deep)}
+.r-hero__art .s-art--ring{left:30px;top:50px;width:460px;height:460px}
+.r-hero__art .s-art--disc{left:95px;top:115px;width:330px;height:330px}
+.r-hero__art .s-art--pill{left:185px;top:90px;width:150px;height:380px}
+.r-hero__art .s-art--dot{left:205px;top:225px;width:110px;height:110px}
+.r-hero__art .s-art--bar{left:150px;top:280px;width:220px}
+/* Flat top (full width, uncropped), semicircular bottom — the bottom-corner radius equals half the box width/
+   height, so the two corners meet exactly at the base and trace a true semicircle matching the ring below. */
+.r-hero__people{position:absolute;left:30px;top:50px;width:460px;height:460px;border-radius:0 0 230px 230px;overflow:hidden}
+.r-hero__people img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+
+/* ---------- Opportunity ---------- */
+.r-trio{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,4fr) minmax(0,4fr);gap:48px;margin-top:96px;align-items:start}
+.r-trio__item{display:flex;flex-direction:column;gap:24px;padding-top:28px;border-top:1px solid var(--line)}
+.r-numeral{display:block;font:400 168px/.8 var(--font-display);letter-spacing:-.04em;color:var(--accent-text)}
+.r-trio .s-body{max-width:none}
+
+/* ---------- History + who we are (paired, sticky) ---------- */
+.r-years{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:40px;view-timeline-name:--years-progress;view-timeline-axis:block}
+.r-year{display:flex;flex-direction:column;gap:12px}
+.r-year:last-child{text-align:right;align-items:flex-end}
+.r-year__num{font:400 184px/.82 var(--font-display);letter-spacing:-.04em}
+.r-year:first-child .r-year__num{color:var(--text)}
+.r-year:last-child .r-year__num{color:var(--line)}
+.r-year__cap{font:var(--text-caption);letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);line-height:1.3;max-width:75%;transform:translateY(47px)}
+.r-year:last-child .r-year__cap{transform:translate(-80px,47px)}
+.r-years__track{position:relative;height:1.5px;background:var(--line)}
+.r-years__line{position:absolute;inset:0;background:var(--text);transform-origin:0 50%}
+.r-years__dot{position:absolute;right:-6px;top:-5px;width:12px;height:12px;border-radius:50%;background:var(--accent)}
+.r-pair{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px 96px;margin-top:120px;align-items:start}
+.r-pair__sticky{position:sticky;top:128px;display:flex;flex-direction:column;gap:28px}
+.r-pair__sticky .s-lead{font:300 26px/40px var(--font-sans);max-width:none}
+.r-pair__stack{display:flex;flex-direction:column;gap:24px}
+.r-steward{display:grid;grid-template-columns:200px minmax(0,1fr);gap:36px;align-items:start;padding:36px;border-radius:var(--radius-lg);background:var(--surface)}
+.r-steward__text{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.r-steward__name{margin:0;font:400 40px/44px var(--font-display);letter-spacing:-.01em}
+.r-steward .s-body{font:400 17px/27px var(--font-sans)}
+
+/* ---------- Advisors ---------- */
+.r-quote{margin:40px 0 0;display:grid;grid-template-columns:88px minmax(0,1fr);gap:40px}
+.r-quote__mark{font:400 200px/.75 var(--font-display);color:var(--accent-text)}
+.r-quote blockquote{margin:0}
+.r-quote blockquote p{margin:0;font:italic 400 56px/64px var(--font-display);letter-spacing:-.015em;text-wrap:balance;max-width:32ch}
+.r-quote figcaption{margin-top:28px;font:var(--text-label);letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
+.r-quote figcaption::before{content:"\2014\00a0"}
+.r-roster{list-style:none;margin:112px 0 0;padding:0;border-top:1px solid var(--line)}
+.r-row{display:grid;grid-template-columns:72px minmax(0,4fr) minmax(0,5fr) minmax(180px,auto);gap:32px;align-items:center;padding:28px 24px;margin:0 -24px;border-bottom:1px solid var(--line);border-radius:var(--radius-md);transition:background-color .4s ease}
+.r-row .s-ph--round{width:72px;height:72px;font-size:9px;line-height:12px;padding:6px;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.r-row:hover .s-ph--round{transform:scale(1.06)}
+.r-row__name{margin:0;font:400 36px/40px var(--font-display);letter-spacing:-.01em}
+.r-row .s-role{font:400 13px/20px var(--font-mono);letter-spacing:.03em}
+.r-row__end{display:flex;justify-content:flex-end;align-items:center;gap:16px}
+.r-row .s-pending{width:auto;padding:8px 12px;font-size:11px;line-height:14px;white-space:nowrap}
+.r-row .s-readbio{margin:0}
+.r-arrow{display:inline-block;width:.6em;height:.6em;margin-left:.3em;vertical-align:.08em;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s ease}
+.s-namelink:hover .r-arrow{transform:translate(2px,-2px)}
+
+/* ---------- Coalition ---------- */
+.r-coal{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:48px 64px;margin-top:88px;align-items:end}
+.r-logos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.r-logo{box-sizing:border-box;display:grid;place-items:center;height:260px;padding:40px;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface-raised);text-decoration:none;transition:border-color .4s ease}
+.r-logo:hover{border-color:color-mix(in srgb,var(--text) 35%,transparent)}
+.r-logo img{display:block;max-width:100%;height:auto;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.r-logo:hover img{transform:scale(1.03)}
+.r-logo:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.r-coal__side{display:flex;flex-direction:column;align-items:flex-start;gap:24px}
+.r-coal__side .s-body{max-width:none}
+.r-caption{margin:0 0 20px;font:var(--text-caption);letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted)}
+
+/* ---------- Add your voice (sticky lead beside the form) ---------- */
+.r-voice{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:48px 112px;align-items:start}
+.r-voice__sticky{position:sticky;top:128px;display:flex;flex-direction:column;gap:32px}
+.r-voice .s-form-col{max-width:none}
+
+/* ---------- Donate ---------- */
+.r-donate__head{display:flex;flex-direction:column;gap:40px}
+.r-donate__head .r-display{max-width:16ch}
+.r-donate{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px 96px;margin-top:88px;align-items:start}
+.r-donate .s-body{max-width:none;font:300 22px/34px var(--font-sans)}
+.r-page .s-give{box-shadow:none;gap:24px}
+.r-page .s-give__disc{right:-48px;top:-64px}
+
+/* ---------- Scroll-driven motion ---------- */
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion:no-preference){
+    @keyframes r-rise{from{opacity:0;transform:translateY(32px)}}
+    @keyframes r-ink{from{opacity:.16}}
+    @keyframes r-draw{from{transform:scaleX(0)}}
+    @keyframes r-grow{to{transform:scaleX(1)}}
+    @keyframes r-leave{to{opacity:.15;transform:translateY(-48px)}}
+    @keyframes r-drift-a{to{transform:translateY(-90px)}}
+    @keyframes r-drift-b{from{transform:rotate(-28deg)}to{transform:translateY(-40px) rotate(-36deg)}}
+    @keyframes r-drift-c{to{transform:translateY(-150px)}}
+    @keyframes r-settle{from{opacity:0;transform:scale(.96) translateY(24px)}}
+    @keyframes r-year-dim{from{color:var(--text)}to{color:var(--line)}}
+    @keyframes r-year-brighten{from{color:var(--line)}to{color:var(--text)}}
+
+    .r-progress{animation:r-grow linear both;animation-timeline:scroll(root)}
+    .r-rise{animation:r-rise linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+    .r-statement span,.r-quote blockquote p span{animation:r-ink linear both;animation-timeline:view();animation-range:cover 18% cover 42%}
+    /* The line draw and both numerals share one named timeline (--years-progress, set on .r-years) and the
+       same range, so the numerals swap colour at exactly the rate the slider line/dot crosses between them. */
+    .r-years__line{animation:r-draw linear both;animation-timeline:--years-progress;animation-range:cover 15% cover 50%}
+    .r-year:first-child .r-year__num{animation:r-year-dim linear both;animation-timeline:--years-progress;animation-range:cover 15% cover 50%}
+    .r-year:last-child .r-year__num{animation:r-year-brighten linear both;animation-timeline:--years-progress;animation-range:cover 15% cover 50%}
+    .r-hero__inner{animation:r-leave linear both;animation-timeline:view();animation-range:exit 10% exit 90%}
+    .r-hero__art .s-art--disc{animation:r-drift-a linear both;animation-timeline:view();animation-range:exit 0% exit 100%}
+    .r-hero__art .s-art--pill{animation:r-drift-b linear both;animation-timeline:view();animation-range:exit 0% exit 100%}
+    .r-hero__art .s-art--dot{animation:r-drift-c linear both;animation-timeline:view();animation-range:exit 0% exit 100%}
+    .r-settle{animation:r-settle linear both;animation-timeline:view();animation-range:entry 0% entry 80%}
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1100px){
+  .r-hero__art{display:none}
+  .r-h1{font-size:112px;line-height:104px}
+  .r-hero__cols,.r-pair,.r-voice,.r-donate,.r-coal{grid-template-columns:minmax(0,1fr)}
+  .r-pair__sticky,.r-voice__sticky{position:static}
+  .r-trio{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .r-trio__item:first-child{grid-column:1/-1}
+  .r-year__num{font-size:128px}
+  .r-row{grid-template-columns:72px minmax(0,1fr) auto}
+  .r-row .s-role{grid-column:2/3}
+  .r-row__end{grid-column:2/-1;justify-content:flex-start}
+
+  /* The desktop-only repositioning of the year captions (shifted down/left to tuck under the numerals)
+     overlaps at this width — revert to a plain, readable stack: caption below its numeral, nudged down
+     a little more so it clears the numeral, and top-aligned (not centred) so both columns start evenly. */
+  .r-years{align-items:flex-start}
+  .r-year__cap{order:1;transform:none;max-width:100%;margin-top:8px}
+  .r-year__num{order:0}
+  .r-year:last-child .r-year__cap{transform:none}
+}
+@media (max-width:760px){
+  .r-band{padding:80px 0}
+  .r-hero{padding:56px 0 72px}
+  .r-hero__inner{gap:24px}
+  .r-h1{font-size:60px;line-height:58px}
+  .r-tagline{font-size:30px;line-height:36px}
+  .r-hero__cols{margin-top:16px;padding-top:28px;gap:28px}
+  .r-hero .s-lead{font-size:20px;line-height:30px}
+  .r-statement{margin-top:28px;font-size:36px;line-height:42px}
+  .r-display{font-size:52px;line-height:52px}
+  .r-trio{grid-template-columns:minmax(0,1fr);gap:36px;margin-top:56px}
+  .r-numeral{font-size:112px}
+  .r-years{gap:16px}
+  .r-year__num{font-size:64px}
+  .r-year__cap{font-size:10px;line-height:14px}
+  .r-pair{margin-top:64px;gap:40px}
+  .r-pair__sticky .s-lead{font-size:20px;line-height:31px}
+  .r-steward{grid-template-columns:minmax(0,1fr);gap:24px;padding:24px}
+  .r-steward .s-ph--portrait{max-width:220px}
+  .r-steward__name{font-size:32px;line-height:36px}
+  .r-quote{grid-template-columns:minmax(0,1fr);gap:0}
+  .r-quote__mark{font-size:120px;height:64px}
+  .r-quote blockquote p{font-size:34px;line-height:40px}
+  .r-roster{margin-top:64px}
+  .r-row{grid-template-columns:56px minmax(0,1fr);gap:8px 20px;padding:24px 16px;margin:0 -16px}
+  .r-row .s-ph--round{width:56px;height:56px;grid-row:1/3}
+  .r-row__name{font-size:28px;line-height:32px}
+  .r-row__end{grid-column:2/3;flex-wrap:wrap}
+  .r-row .s-pending{white-space:normal}
+  .r-coal{margin-top:48px}
+  .r-logos{gap:12px}
+  .r-logo{height:160px;padding:20px}
+  .r-voice{gap:36px}
+  .r-donate{margin-top:48px;gap:48px}
+  .r-donate .s-body{font-size:19px;line-height:30px}
+}

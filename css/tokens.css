@@ -1,0 +1,245 @@
+/* Declaring Our Tech Futures — generated from tokens.json */
+:root, [data-theme="light"] {
+  --morning-snow: #f5f4ed; /* Palette. Warm off-white. Page ground in light, text colour in dark. Never replace with pure white. */
+  --amazon-mist: #ececdc; /* Palette. Pale sage-cream. Alternate sections, flat cards and chip fills in light. */
+  --aqua-mist: #a0c9cb; /* Palette. Cool secondary accent. Chips, person-photo grounds, one band in an accordion, focus ring in dark. Dark text only (8.65:1 with black-kite). */
+  --toxic-orange: #ff6037; /* Palette. The one loud colour. Fills for CTAs, ribbons and highlights with black-kite text on top (5.16:1). Not for small text on light grounds (2.7:1). */
+  --garnet: #733635; /* Palette. Secondary dark. Full-width sections, hover fill for buttons, control borders in light. Carries morning-snow text (8.25:1). */
+  --black-kite: #351e1c; /* Palette. Warm near-black. Body text in light, page ground in dark, ink sections. */
+  --bg: var(--morning-snow); /* Page background. Text and muted text read on it in both themes. */
+  --surface: var(--amazon-mist); /* Alternate sections and flat cards. Text, text-muted and accent-text read on it. */
+  --surface-raised: #fbfaf5; /* Raised cards, inputs, nav pill. Pair with shadow-md. Text and text-muted read on it. */
+  --deep: var(--garnet); /* Full-width deep sections and badges. Use on-deep for text; accent-cool for small labels; toxic-orange only for 24px+ italic emphasis (3.0:1). */
+  --on-deep: var(--morning-snow); /* Text and icons on deep (8.25:1). */
+  --text: var(--black-kite); /* Body and headline text on bg, surface and surface-raised (14.1:1 light, 14.1:1 dark). */
+  --text-muted: #6b5450; /* Secondary text, hints, captions on bg, surface, surface-raised. At least 5.8:1 in both themes. */
+  --accent: var(--toxic-orange); /* Fill colour for primary buttons, ribbons, stat tiles and highlights. Never text on light grounds; use accent-text. */
+  --on-accent: var(--black-kite); /* Text and icons on accent fills (5.16:1). Never white. */
+  --accent-text: #b8340f; /* Orange used AS TEXT: eyebrows, italic emphasis, text links on bg/surface (5.0:1 min in light). In dark it is toxic-orange (4.8:1 on surface, 5.2:1 on bg). */
+  --accent-cool: var(--aqua-mist); /* Secondary accent fill and small labels on deep. Text on it is on-accent-cool. */
+  --on-accent-cool: var(--black-kite); /* Text on accent-cool (8.65:1). */
+  --line: #351e1c33; /* Decorative hairlines and dividers only. Not for control edges. */
+  --border-strong: var(--garnet); /* Edges of inputs and secondary buttons (3:1 or better on bg, surface, surface-raised in both themes). */
+  --focus: var(--black-kite); /* Keyboard focus ring: 3px solid, 3px offset. At least 3:1 on every ground in its theme. */
+  --danger: #a82f0e; /* Error text and error borders. Always paired with a word and an icon, never colour alone. */
+  --shadow-sm: 0 1px 2px rgba(53,30,28,0.14); /* Chips on raised grounds. */
+  --shadow-md: 0 12px 32px -12px rgba(53,30,28,0.28); /* Cards and nav. */
+  --shadow-lg: 0 32px 80px -24px rgba(53,30,28,0.38); /* Featured declaration card. */
+}
+[data-theme="dark"] {
+  --morning-snow: #f5f4ed;
+  --amazon-mist: #ececdc;
+  --aqua-mist: #a0c9cb;
+  --toxic-orange: #ff6037;
+  --garnet: #733635;
+  --black-kite: #351e1c;
+  --bg: var(--black-kite);
+  --surface: #3c2321;
+  --surface-raised: #4a2c29;
+  --deep: var(--garnet);
+  --on-deep: var(--morning-snow);
+  --text: var(--morning-snow);
+  --text-muted: #cfc3b6;
+  --accent: var(--toxic-orange);
+  --on-accent: var(--black-kite);
+  --accent-text: var(--toxic-orange);
+  --accent-cool: var(--aqua-mist);
+  --on-accent-cool: var(--black-kite);
+  --line: #f5f4ed33;
+  --border-strong: #c9a9a0;
+  --focus: var(--aqua-mist);
+  --danger: #ffa58f;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-md: 0 12px 32px -12px rgba(0,0,0,0.6);
+  --shadow-lg: 0 32px 80px -24px rgba(0,0,0,0.7);
+}
+:root {
+  --space-1: 4px; /* Icon gaps. */
+  --space-2: 8px; /* Gap inside chips and labels. */
+  --space-3: 12px; /* Gap between label and field. */
+  --space-4: 16px; /* Default gap in a stack. */
+  --space-5: 24px; /* Card gap, button group gap. */
+  --space-6: 32px; /* Card padding. */
+  --space-7: 48px; /* Gap between content blocks. */
+  --space-8: 64px; /* Section padding on phones. */
+  --space-9: 96px; /* Section padding on desktop. */
+  --space-10: 128px; /* Hero padding on desktop. */
+  --radius-sm: 8px; /* Small tags, image corners in dense lists. */
+  --radius-md: 16px; /* Inputs, portrait photos. */
+  --radius-lg: 32px; /* Cards, quote cards, big panels. */
+  --radius-pill: 999px; /* Buttons, chips, nav bar, ribbons. */
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --text-display-xl: 400 112px/104px var(--font-display); /* Hero statement only, one per page. Set an <em> phrase in italic accent-text. Scale down to 56px/56px under 640px. */
+  --text-display-lg: 400 72px/70px var(--font-display); /* Section openers. */
+  --text-display-md: 400 48px/52px var(--font-display); /* Sub-section and large card titles. */
+  --text-heading: 400 32px/38px var(--font-display); /* Card titles, accordion bands. */
+  --text-subheading: 400 24px/30px var(--font-display); /* Person names, small card titles. */
+  --text-quote-lg: italic 400 44px/52px var(--font-display); /* Pull quotes and declarations. */
+  --text-quote-md: italic 400 28px/36px var(--font-display); /* Card quotes, testimonials. */
+  --text-lead: 300 22px/32px var(--font-sans); /* Intro paragraph under a display heading. 60 characters wide at most. */
+  --text-body-lg: 400 18px/28px var(--font-sans); /* Long-form reading. */
+  --text-body: 400 16px/26px var(--font-sans); /* Default UI and paragraph text. */
+  --text-body-sm: 400 14px/22px var(--font-sans); /* Hints, captions, footers. */
+  --text-emphasis: 600 16px/26px var(--font-sans); /* Inline emphasis and field values. Never for headlines. */
+  --text-label: 500 12px/16px var(--font-mono); /* Eyebrows, chips, field labels. Set UPPERCASE. */
+  --text-button: 500 13px/16px var(--font-mono); /* Button text. Set UPPERCASE. */
+  --text-caption: 400 12px/18px var(--font-mono); /* Credits, dates, photo attributions. */
+}
+.display-xl {
+  font-family: var(--font-display);
+  font-size: 112px;
+  line-height: 104px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.display-lg {
+  font-family: var(--font-display);
+  font-size: 72px;
+  line-height: 70px;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+.display-md {
+  font-family: var(--font-display);
+  font-size: 48px;
+  line-height: 52px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.heading {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 38px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+.subheading {
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.quote-lg {
+  font-family: var(--font-display);
+  font-size: 44px;
+  line-height: 52px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-style: italic;
+}
+.quote-md {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-style: italic;
+}
+.lead {
+  font-family: var(--font-sans);
+  font-size: 22px;
+  line-height: 32px;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+.body-lg {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body-sm {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.emphasis {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+.button {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+.caption {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("fonts/InstrumentSerif-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("fonts/InstrumentSerif-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("fonts/HankenGrotesk-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("fonts/HankenGrotesk-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("fonts/HankenGrotesk-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Mono";
+  src: url("fonts/DMMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Mono";
+  src: url("fonts/DMMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
