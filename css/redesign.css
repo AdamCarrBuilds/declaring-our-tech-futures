@@ -81,7 +81,7 @@
 .r-numeral{display:block;font:400 168px/.8 var(--font-display);letter-spacing:-.04em;color:var(--accent-text)}
 .r-trio .s-body{max-width:none}
 
-/* ---------- History + who we are (paired, sticky) ---------- */
+/* ---------- History: timeline + lead ---------- */
 .r-years{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:40px;view-timeline-name:--years-progress;view-timeline-axis:block}
 .r-year{display:flex;flex-direction:column;gap:12px}
 .r-year:last-child{text-align:right;align-items:flex-end}
@@ -93,33 +93,58 @@
 .r-years__track{position:relative;height:1.5px;background:var(--line)}
 .r-years__line{position:absolute;inset:0;background:var(--text);transform-origin:0 50%}
 .r-years__dot{position:absolute;right:-6px;top:-5px;width:12px;height:12px;border-radius:50%;background:var(--accent)}
-.r-pair{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px 96px;margin-top:120px;align-items:start}
-.r-pair__sticky{position:sticky;top:128px;display:flex;flex-direction:column;gap:28px}
-.r-pair__sticky .s-lead{font:300 26px/40px var(--font-sans);max-width:none}
-.r-pair__stack{display:flex;flex-direction:column;gap:24px}
-.r-steward{display:grid;grid-template-columns:200px minmax(0,1fr);gap:36px;align-items:start;padding:36px;border-radius:var(--radius-lg);background:var(--surface)}
-.r-steward__text{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
-.r-steward__name{margin:0;font:400 40px/44px var(--font-display);letter-spacing:-.01em}
-.r-steward .s-body{font:400 17px/27px var(--font-sans)}
+.r-timeline{display:grid;grid-template-columns:auto minmax(0,1fr) auto;column-gap:40px}
+.r-timeline .r-years{grid-column:1/-1;grid-template-columns:subgrid}
+/* Eyebrow with the lead directly beneath it, both flush left under the timeline */
+.r-history{grid-column:1/-1;display:flex;flex-direction:column;align-items:flex-start;gap:28px;margin-top:120px}
+.r-history .s-lead{font:300 30px/46px var(--font-sans);max-width:42ch}
 
-/* ---------- Advisors ---------- */
-.r-quote{margin:40px 0 0;display:grid;grid-template-columns:88px minmax(0,1fr);gap:40px}
-.r-quote__mark{font:400 200px/.75 var(--font-display);color:var(--accent-text)}
-.r-quote blockquote{margin:0}
-.r-quote blockquote p{margin:0;font:italic 400 56px/64px var(--font-display);letter-spacing:-.015em;text-wrap:balance;max-width:32ch}
-.r-quote figcaption{margin-top:28px;font:var(--text-label);letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
-.r-quote figcaption::before{content:"\2014\00a0"}
-.r-roster{list-style:none;margin:112px 0 0;padding:0;border-top:1px solid var(--line)}
-.r-row{display:grid;grid-template-columns:72px minmax(0,4fr) minmax(0,5fr) minmax(180px,auto);gap:32px;align-items:center;padding:28px 24px;margin:0 -24px;border-bottom:1px solid var(--line);border-radius:var(--radius-md);transition:background-color .4s ease}
-.r-row .s-ph--round{width:72px;height:72px;font-size:9px;line-height:12px;padding:6px;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-.r-row:hover .s-ph--round{transform:scale(1.06)}
-.r-row__name{margin:0;font:400 36px/40px var(--font-display);letter-spacing:-.01em}
-.r-row .s-role{font:400 13px/20px var(--font-mono);letter-spacing:.03em}
-.r-row__end{display:flex;justify-content:flex-end;align-items:center;gap:16px}
-.r-row .s-pending{width:auto;padding:8px 12px;font-size:11px;line-height:14px;white-space:nowrap}
-.r-row .s-readbio{margin:0}
+/* ---------- Advisors: one full-width row each ----------
+   Row = photo · name / title nested under it · Expand bio; below: short bio (swaps with the full bio) under the name | tech-future statement (when filled in) under the title. */
+.r-roster{list-style:none;margin:72px 0 0;padding:0;border-top:1px solid var(--line)}
+.r-row{display:grid;grid-template-columns:72px minmax(0,6fr) minmax(0,4fr) auto;column-gap:32px;align-items:center;padding:32px 24px;margin:0 -24px;border-bottom:1px solid var(--line);border-radius:var(--radius-md);transition:background-color .4s ease}
+.r-row.is-open{background:color-mix(in srgb,var(--surface) 55%,transparent)}
+/* Name on the first line (Expand bio opposite), title nested directly under it, photo centred against both */
+.r-row__photo{grid-column:1;grid-row:1/3}
+.r-row__name{grid-column:2/4;grid-row:1;align-self:end;margin:0;font:400 36px/40px var(--font-display);letter-spacing:-.01em}
+.r-row .s-role{grid-column:2/4;grid-row:2;align-self:start;margin-top:8px;font:400 13px/20px var(--font-mono);letter-spacing:.03em}
+.r-row__end{grid-column:4;grid-row:1;align-self:end;display:flex;justify-content:flex-end;align-items:center;gap:16px;padding-left:16px}
+.r-row__photo{display:grid;place-items:center;width:72px;height:72px;border-radius:50%;overflow:hidden;background:var(--accent-cool);color:var(--on-accent-cool);font:400 24px/1 var(--font-display);text-decoration:none;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease}
+.r-row__photo img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.9);transition:filter .5s ease}
+.r-row:hover .r-row__photo{transform:scale(1.06);box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px var(--accent)}
+.r-row:hover .r-row__photo img{filter:none}
+/* Short bio ⇄ full bio: both live in the same slot; "Expand bio" fades the short one out as the full one folds open */
+/* Under the top row: bio sits under the name (60%), statement under the title (40%); subgrid keeps the edges aligned.
+   The Expand bio column stays clear on the right. */
+.r-row__detail{grid-column:2/4;grid-row:3;display:grid;grid-template-columns:subgrid;row-gap:24px;align-items:start;margin-top:24px}
+.r-row__bios{display:grid}
+.r-row__short,.r-row__full{display:grid}
+.r-row__fold{min-height:0;overflow:hidden}
+.r-row__short{grid-template-rows:1fr;transition:grid-template-rows .55s cubic-bezier(.2,.7,.2,1),opacity .4s ease .15s}
+.r-row__full{grid-template-rows:0fr;opacity:0;visibility:hidden;transition:grid-template-rows .55s cubic-bezier(.2,.7,.2,1),opacity .25s ease,visibility 0s linear .55s}
+.r-row.is-open .r-row__short{grid-template-rows:0fr;opacity:0;visibility:hidden;transition:grid-template-rows .55s cubic-bezier(.2,.7,.2,1),opacity .25s ease,visibility 0s linear .55s}
+.r-row.is-open .r-row__full{grid-template-rows:1fr;opacity:1;visibility:visible;transition:grid-template-rows .55s cubic-bezier(.2,.7,.2,1),opacity .45s ease .15s}
+.r-row__bio{margin:0;font:400 17px/27px var(--font-sans);max-width:64ch}
+.r-row__full .s-prose{gap:16px;max-width:68ch}
+.r-row__full .s-body{margin:0;font:400 17px/28px var(--font-sans)}
+/* Tech-future statement: right-hand column beside the bio, one step below the name in the hierarchy */
+.r-row__statement{position:relative;margin:0;padding:4px 0 0 44px}
+.r-row__statement::before{content:"\201C";position:absolute;left:0;top:0;font:400 64px/.8 var(--font-display);color:var(--accent-text)}
+.r-row__statement p{margin:0;font:italic 400 26px/34px var(--font-display);letter-spacing:-.005em;text-wrap:balance}
+.r-row .s-readbio{margin:0;gap:10px}
+.r-chev{flex:none;width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.r-row__toggle[aria-expanded="true"] .r-chev{transform:rotate(180deg)}
 .r-arrow{display:inline-block;width:.6em;height:.6em;margin-left:.3em;vertical-align:.08em;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s ease}
 .s-namelink:hover .r-arrow{transform:translate(2px,-2px)}
+
+/* ---------- Who we are ---------- */
+.r-stewards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:56px}
+.r-steward{box-sizing:border-box;display:grid;grid-template-columns:168px minmax(0,1fr);gap:28px 32px;align-items:end;padding:40px;border-radius:var(--radius-lg);background:var(--surface-raised)}
+.r-steward__photo{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radius-md);background:var(--accent-cool);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.r-steward:hover .r-steward__photo{transform:scale(1.03)}
+.r-steward__head{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.r-steward__name{margin:0;font:400 40px/44px var(--font-display);letter-spacing:-.01em}
+.r-steward .s-body{grid-column:1/-1;margin:0;font:400 17px/27px var(--font-sans);max-width:none}
 
 /* ---------- Coalition ---------- */
 .r-coal{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:48px 64px;margin-top:88px;align-items:end}
@@ -145,6 +170,20 @@
 .r-donate .s-body{max-width:none;font:300 22px/34px var(--font-sans)}
 .r-page .s-give{box-shadow:none;gap:24px}
 .r-page .s-give__disc{right:-48px;top:-64px}
+/* Donate CTA: the primary call to action on the page. Two-line label, oversized arrow disc, fill sweep on hover. */
+.r-page .s-give__btn{position:relative;isolation:isolate;overflow:hidden;min-height:0;gap:24px;padding:28px 20px 28px 44px;background:var(--black-kite);color:var(--morning-snow);text-transform:none;letter-spacing:0;box-shadow:0 28px 56px -24px rgba(53,30,28,.75);transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease}
+.r-page .s-give__btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--deep);transform:scaleX(0);transform-origin:100% 50%;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.r-page .s-give__btn:hover{background:var(--black-kite);transform:translateY(-3px);box-shadow:0 36px 64px -24px rgba(53,30,28,.85)}
+.r-page .s-give__btn:hover::before{transform:scaleX(1)}
+.r-page .s-give__btn:focus-visible{outline:3px solid var(--black-kite);outline-offset:4px}
+.s-give__label{display:flex;flex-direction:column;gap:2px;min-width:0}
+.s-give__kicker{font:500 13px/16px var(--font-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent-cool)}
+.s-give__main{font:400 44px/44px var(--font-display);letter-spacing:-.015em}
+.s-give__arrow{position:relative;flex:none;display:grid;place-items:center;width:88px;height:88px;border-radius:50%;background:var(--accent);color:var(--on-accent);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.s-give__arrow::after{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--accent);opacity:0}
+.r-page .s-give__btn .s-give__arrow svg{width:30px;height:30px;padding:0;background:none;border-radius:0;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.r-page .s-give__btn:hover .s-give__arrow{transform:scale(1.07)}
+.r-page .s-give__btn:hover .s-give__arrow svg{transform:translateY(-4px)}
 
 /* ---------- Scroll-driven motion ---------- */
 @supports (animation-timeline: view()){
@@ -159,11 +198,13 @@
     @keyframes r-drift-c{to{transform:translateY(-150px)}}
     @keyframes r-settle{from{opacity:0;transform:scale(.96) translateY(24px)}}
     @keyframes r-year-dim{from{color:var(--text)}to{color:var(--line)}}
+    @keyframes r-pulse{0%{opacity:.7;transform:scale(1)}80%,100%{opacity:0;transform:scale(1.45)}}
+    .s-give__arrow::after{animation:r-pulse 2.6s cubic-bezier(.2,.7,.2,1) infinite}
     @keyframes r-year-brighten{from{color:var(--line)}to{color:var(--text)}}
 
     .r-progress{animation:r-grow linear both;animation-timeline:scroll(root)}
     .r-rise{animation:r-rise linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
-    .r-statement span,.r-quote blockquote p span{animation:r-ink linear both;animation-timeline:view();animation-range:cover 18% cover 42%}
+    .r-statement span{animation:r-ink linear both;animation-timeline:view();animation-range:cover 18% cover 42%}
     /* The line draw and both numerals share one named timeline (--years-progress, set on .r-years) and the
        same range, so the numerals swap colour at exactly the rate the slider line/dot crosses between them. */
     .r-years__line{animation:r-draw linear both;animation-timeline:--years-progress;animation-range:cover 15% cover 50%}
@@ -181,14 +222,16 @@
 @media (max-width:1100px){
   .r-hero__art{display:none}
   .r-h1{font-size:112px;line-height:104px}
-  .r-hero__cols,.r-pair,.r-voice,.r-donate,.r-coal{grid-template-columns:minmax(0,1fr)}
-  .r-pair__sticky,.r-voice__sticky{position:static}
+  .r-hero__cols,.r-voice,.r-donate,.r-coal{grid-template-columns:minmax(0,1fr)}
+  .r-voice__sticky{position:static}
   .r-trio{grid-template-columns:repeat(2,minmax(0,1fr))}
   .r-trio__item:first-child{grid-column:1/-1}
   .r-year__num{font-size:128px}
+  .r-stewards{grid-template-columns:minmax(0,1fr)}
   .r-row{grid-template-columns:72px minmax(0,1fr) auto}
-  .r-row .s-role{grid-column:2/3}
-  .r-row__end{grid-column:2/-1;justify-content:flex-start}
+  .r-row__name,.r-row .s-role{grid-column:2/3}
+  .r-row__end{grid-column:3}
+  .r-row__detail{grid-column:2/3;grid-template-columns:minmax(0,1fr)}
 
   /* The desktop-only repositioning of the year captions (shifted down/left to tuck under the numerals)
      overlaps at this width — revert to a plain, readable stack: caption below its numeral, nudged down
@@ -213,20 +256,28 @@
   .r-years{gap:16px}
   .r-year__num{font-size:64px}
   .r-year__cap{font-size:10px;line-height:14px}
-  .r-pair{margin-top:64px;gap:40px}
-  .r-pair__sticky .s-lead{font-size:20px;line-height:31px}
-  .r-steward{grid-template-columns:minmax(0,1fr);gap:24px;padding:24px}
-  .r-steward .s-ph--portrait{max-width:220px}
-  .r-steward__name{font-size:32px;line-height:36px}
-  .r-quote{grid-template-columns:minmax(0,1fr);gap:0}
-  .r-quote__mark{font-size:120px;height:64px}
-  .r-quote blockquote p{font-size:34px;line-height:40px}
-  .r-roster{margin-top:64px}
-  .r-row{grid-template-columns:56px minmax(0,1fr);gap:8px 20px;padding:24px 16px;margin:0 -16px}
-  .r-row .s-ph--round{width:56px;height:56px;grid-row:1/3}
+  .r-history{display:flex;flex-direction:column;gap:20px;margin-top:64px}
+  .r-history .r-eyebrow{padding-top:0}
+  .r-history .s-lead{font-size:20px;line-height:31px}
+  .r-roster{margin-top:48px}
+  .r-row{grid-template-columns:56px minmax(0,1fr);gap:8px 16px;padding:24px 16px;margin:0 -16px}
   .r-row__name{font-size:28px;line-height:32px}
-  .r-row__end{grid-column:2/3;flex-wrap:wrap}
-  .r-row .s-pending{white-space:normal}
+  .r-row__photo{width:56px;height:56px;font-size:20px;grid-row:1/3}
+  .r-row__detail{grid-column:1/-1;grid-row:4;margin-top:12px}
+  .r-row__statement{padding-left:36px}
+  .r-row__statement::before{font-size:52px}
+  .r-row__statement p{font-size:22px;line-height:29px}
+  /* Phone: Expand bio drops to its own line between the name/title and the bio */
+  .r-row__end{grid-column:1/-1;grid-row:3;justify-content:flex-start;padding-left:0;margin-top:12px}
+  .r-stewards{grid-template-columns:minmax(0,1fr);gap:16px;margin-top:40px}
+  .r-steward{grid-template-columns:112px minmax(0,1fr);gap:20px;padding:24px}
+  .r-steward__name{font-size:30px;line-height:34px}
+  .r-page .s-give__btn{gap:16px;padding:20px 14px 20px 24px}
+  .s-give__kicker{font-size:11px;line-height:14px;letter-spacing:.12em}
+  .s-give__main{font-size:28px;line-height:30px}
+  .s-give__arrow{width:60px;height:60px}
+  .r-page .s-give__btn .s-give__arrow svg{width:22px;height:22px}
+  .r-timeline{column-gap:16px}
   .r-coal{margin-top:48px}
   .r-logos{gap:12px}
   .r-logo{height:160px;padding:20px}

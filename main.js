@@ -46,33 +46,17 @@
     success.focus();
   });
 
-  // Bio dialog with focus trap, Esc to close, focus restore
-  var scrim = document.getElementById('bio-scrim');
-  var dialog = document.getElementById('bio-dialog');
-  var opener = null;
-
-  function openBio(trigger) {
-    opener = trigger;
-    scrim.hidden = false;
-    document.body.style.overflow = 'hidden';
-    dialog.querySelector('[data-close-bio]').focus();
-  }
-  function closeBio() {
-    scrim.hidden = true;
-    document.body.style.overflow = '';
-    if (opener) opener.focus();
-  }
-  document.querySelectorAll('[data-open-bio]').forEach(function (b) {
-    b.addEventListener('click', function () { openBio(b); });
-  });
-  dialog.querySelector('[data-close-bio]').addEventListener('click', closeBio);
-  scrim.addEventListener('click', function (ev) { if (ev.target === scrim) closeBio(); });
-  dialog.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape') { ev.stopPropagation(); closeBio(); return; }
-    if (ev.key !== 'Tab') return;
-    var items = dialog.querySelectorAll('button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])');
-    var first = items[0], last = items[items.length - 1], active = document.activeElement;
-    if (ev.shiftKey && (active === first || active === dialog)) { ev.preventDefault(); last.focus(); }
-    else if (!ev.shiftKey && active === last) { ev.preventDefault(); first.focus(); }
+  // Advisor "Expand bio" toggles: the short bio fades out and the full bio folds open in its place
+  document.querySelectorAll('.r-row__toggle').forEach(function (btn) {
+    var panel = document.getElementById(btn.getAttribute('aria-controls'));
+    var label = btn.querySelector('.r-row__toggle-label');
+    var row = btn.closest('.r-row');
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      panel.classList.toggle('is-open', open);
+      row.classList.toggle('is-open', open);
+      label.textContent = open ? 'Close bio' : 'Expand bio';
+    });
   });
 })();
