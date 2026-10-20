@@ -139,7 +139,7 @@ body{margin:0;background:var(--bg)}
 .s-footer__brand{display:inline-flex;align-items:center;gap:14px;font:var(--text-subheading);color:var(--morning-snow);text-decoration:none}
 .s-footer__brand .s-mark{height:44px;color:var(--accent)}
 .s-footer__brand:focus-visible{outline:3px solid var(--aqua-mist);outline-offset:4px;border-radius:8px}
-.s-footer__links{display:flex;gap:24px;margin:0;padding:0;list-style:none;font:var(--text-caption);letter-spacing:.04em;text-transform:uppercase;color:var(--accent-cool)}
+.s-footer__legal{margin:0;font:var(--text-caption);letter-spacing:.04em;text-transform:uppercase;color:var(--accent-cool)}
 
 /* Dialog */
 .s-scrim{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;background:rgba(53,30,28,.62)}
