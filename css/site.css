@@ -161,6 +161,7 @@ body{margin:0;background:var(--bg)}
 .s-check input{flex:none;width:22px;height:22px;margin:2px 0 0;accent-color:var(--deep);cursor:pointer}
 .s-check input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 .s-form .dotf-btn{align-self:flex-start;min-width:160px}
+.s-form__note{margin:-12px 0 0;font:var(--text-caption);color:var(--text-muted)}
 /* Spam honeypot: kept off-screen (not display:none, which some bots skip) */
 .s-hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 .s-success{box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;gap:24px;width:100%;padding:48px 40px;border-radius:var(--radius-lg);background:var(--surface-raised);box-shadow:var(--shadow-md)}
