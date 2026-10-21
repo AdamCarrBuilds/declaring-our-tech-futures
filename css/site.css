@@ -161,6 +161,8 @@ body{margin:0;background:var(--bg)}
 .s-check input{flex:none;width:22px;height:22px;margin:2px 0 0;accent-color:var(--deep);cursor:pointer}
 .s-check input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 .s-form .dotf-btn{align-self:flex-start;min-width:160px}
+/* Spam honeypot: kept off-screen (not display:none, which some bots skip) */
+.s-hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 .s-success{box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;gap:24px;width:100%;padding:48px 40px;border-radius:var(--radius-lg);background:var(--surface-raised);box-shadow:var(--shadow-md)}
 .s-success:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 .s-success__icon{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--accent-cool);color:var(--on-accent-cool)}

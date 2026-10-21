@@ -1,6 +1,10 @@
 (function () {
   'use strict';
 
+  // Google Apps Script web app that appends each submission to the tracking sheet
+  // (script source: google-apps-script/Code.gs). Paste the deployment's /exec URL here.
+  var FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycby0rrG9s206Mnwvh37Q34bl84pzGO6wFriaHGUlQg7FvmJ7x0AgEwQeZG1NMqE_kBbm/exec';
+
   // Pointer-following glow on .r-glow surfaces
   document.querySelectorAll('.r-glow').forEach(function (el) {
     el.addEventListener('pointermove', function (ev) {
@@ -10,7 +14,7 @@
     });
   });
 
-  // Form validation + success state (no backend yet: swap in a real submit handler)
+  // Form validation, then send to the Google Sheet and show the success state
   var form = document.getElementById('voice-form');
   var success = document.getElementById('voice-success');
   var nameIn = document.getElementById('f-name');
@@ -19,6 +23,8 @@
   var emailField = document.getElementById('field-email');
   var nameErr = document.getElementById('f-name-err');
   var emailErr = document.getElementById('f-email-err');
+  var sendErr = document.getElementById('f-send-err');
+  var submitBtn = form.querySelector('button[type="submit"]');
 
   function setError(field, input, err, msg) {
     var on = !!msg;
@@ -41,9 +47,36 @@
     setError(nameField, nameIn, nameErr, nameMsg);
     setError(emailField, emailIn, emailErr, emailMsg);
     if (nameMsg || emailMsg) { (nameMsg ? nameIn : emailIn).focus(); return; }
-    form.hidden = true;
-    success.hidden = false;
-    success.focus();
+
+    var data = new URLSearchParams();
+    data.append('name', nameIn.value.trim());
+    data.append('email', email);
+    data.append('org', form.elements.org.value.trim());
+    data.append('message', form.elements.message.value.trim());
+    data.append('updates', form.elements.updates.checked ? 'yes' : 'no');
+    data.append('website', form.elements.website.value);
+    data.append('page', location.href);
+
+    sendErr.hidden = true;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    // Apps Script doesn't send CORS headers, so the request goes out as a simple "no-cors" POST:
+    // the response can't be read, but a network failure still rejects and shows the error.
+    var send = FORM_ENDPOINT
+      ? fetch(FORM_ENDPOINT, { method: 'POST', mode: 'no-cors', body: data })
+      : Promise.reject(new Error('FORM_ENDPOINT is not set'));
+
+    send.then(function () {
+      form.hidden = true;
+      success.hidden = false;
+      success.focus();
+    }).catch(function (err) {
+      if (window.console) console.error('Form send failed:', err);
+      sendErr.hidden = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send';
+    });
   });
 
   // Advisor "Read bio" toggles: the short bio fades out and the full bio folds open in its place
