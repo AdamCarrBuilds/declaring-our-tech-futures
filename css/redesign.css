@@ -101,11 +101,11 @@
 .r-history .s-lead{font:300 30px/46px var(--font-sans);max-width:42ch}
 
 /* ---------- Advisors: one full-width row each ----------
-   Row = photo · name / title nested under it · Expand bio; below the name: tech-future statement (when filled in), then the full bio on expand. */
+   Row = photo · name / title nested under it · Read bio; below the name: tech-future statement (when filled in), then the full bio on expand. */
 .r-roster{list-style:none;margin:72px 0 0;padding:0;border-top:1px solid var(--line)}
 .r-row{display:grid;grid-template-columns:72px minmax(0,6fr) minmax(0,4fr) auto;column-gap:32px;align-items:center;padding:32px 24px;margin:0 -24px;border-bottom:1px solid var(--line);border-radius:var(--radius-md);transition:background-color .4s ease}
 .r-row.is-open{background:color-mix(in srgb,var(--surface) 55%,transparent)}
-/* Name on the first line (Expand bio opposite), title nested directly under it, photo centred against both */
+/* Name on the first line (Read bio opposite), title nested directly under it, photo centred against both */
 .r-row__photo{grid-column:1;grid-row:1/3}
 .r-row__name{grid-column:2/4;grid-row:1;align-self:end;margin:0;font:400 36px/40px var(--font-display);letter-spacing:-.01em}
 .r-row .s-role{grid-column:2/4;grid-row:2;align-self:start;margin-top:8px;font:400 13px/20px var(--font-mono);letter-spacing:.03em}
@@ -115,7 +115,7 @@
 .r-row:hover .r-row__photo{transform:scale(1.06);box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px var(--accent)}
 .r-row:hover .r-row__photo img{filter:none}
 /* Under the top row, aligned with the name: the tech-future statement is the only thing shown while collapsed;
-   "Expand bio" folds the full bio open beneath it. The Expand bio column stays clear on the right. */
+   "Read bio" folds the full bio open beneath it. The Read bio column stays clear on the right. */
 .r-row__detail{grid-column:2/4;grid-row:3;display:grid;grid-template-columns:minmax(0,1fr);align-items:start}
 .r-row__bios,.r-row__full{display:grid}
 .r-row__fold{min-height:0;overflow:hidden}
@@ -263,7 +263,7 @@
   .r-row__statement{padding-left:36px}
   .r-row__statement::before{font-size:52px}
   .r-row__statement p{font-size:22px;line-height:29px}
-  /* Phone: Expand bio drops to its own line between the name/title and the bio */
+  /* Phone: Read bio drops to its own line between the name/title and the bio */
   .r-row__end{grid-column:1/-1;grid-row:3;justify-content:flex-start;padding-left:0;margin-top:12px}
   .r-stewards{grid-template-columns:minmax(0,1fr);gap:16px;margin-top:40px}
   .r-steward{grid-template-columns:112px minmax(0,1fr);gap:20px;padding:24px}

@@ -46,7 +46,7 @@
     success.focus();
   });
 
-  // Advisor "Expand bio" toggles: the short bio fades out and the full bio folds open in its place
+  // Advisor "Read bio" toggles: the short bio fades out and the full bio folds open in its place
   document.querySelectorAll('.r-row__toggle').forEach(function (btn) {
     var panel = document.getElementById(btn.getAttribute('aria-controls'));
     var label = btn.querySelector('.r-row__toggle-label');
@@ -56,7 +56,7 @@
       btn.setAttribute('aria-expanded', String(open));
       panel.classList.toggle('is-open', open);
       row.classList.toggle('is-open', open);
-      label.textContent = open ? 'Close bio' : 'Expand bio';
+      label.textContent = open ? 'Close bio' : 'Read bio';
     });
   });
 })();
