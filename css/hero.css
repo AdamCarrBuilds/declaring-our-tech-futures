@@ -62,12 +62,12 @@
 }
 
 /* =====================================================================
-   Hero4 — cream back arch, arrow after "Futures", staggered rise.
+   Hero4 — cream (--surface) back arch, arrow after "Futures", staggered rise.
    The back arch spans the full height of .hc-top, so its apex lines up with the top of the H1 and its base
    sits on the same line as the aqua arch. Each arch and the illustration slide up out of the base line: only what is
    below the base is cropped (by .hc-back-clip / .hc-photo), so the curved tops stay whole throughout the rise.
    ===================================================================== */
-.hc-hero{--hc-cream:#FFFFE1;--hc-ease:cubic-bezier(.22,1,.36,1);--hc-back-top:calc(clamp(80px,10.4vw,150px) * .023)}  /* apex = ink top of the "Declaring" ascenders */
+.hc-hero{--hc-cream:var(--surface);--hc-ease:cubic-bezier(.22,1,.36,1);--hc-back-top:calc(clamp(80px,10.4vw,150px) * .023)}  /* apex = ink top of the "Declaring" ascenders */
 .hc-arrow{display:inline-block;width:.45em;height:auto;margin-left:.28em;vertical-align:.1em;color:var(--accent-text);transition:translate .5s var(--hc-ease)}
 .hc-h1:hover .hc-arrow{translate:.08em 0}
 .hc-art{top:var(--hc-back-top,0px);height:auto}
