@@ -102,6 +102,9 @@
 
 /* ---------- Advisors: one full-width row each ----------
    Row = photo · name / title nested under it · Read bio; below the name: tech-future statement (when filled in), then the full bio on expand. */
+/* Intro line that frames the tech-future statements below; set in the statements' italic display face */
+.r-roster__intro{margin:32px 0 0;font:italic 400 34px/42px var(--font-display);letter-spacing:-.005em;color:var(--text-muted);max-width:44ch}
+.r-roster__intro + .r-roster{margin-top:48px}
 .r-roster{list-style:none;margin:72px 0 0;padding:0;border-top:1px solid var(--line)}
 .r-row{display:grid;grid-template-columns:72px minmax(0,6fr) minmax(0,4fr) auto;column-gap:32px;align-items:center;padding:32px 24px;margin:0 -24px;border-bottom:1px solid var(--line);border-radius:var(--radius-md);transition:background-color .4s ease}
 .r-row.is-open{background:color-mix(in srgb,var(--surface) 55%,transparent)}
@@ -256,6 +259,8 @@
   .r-history .r-eyebrow{padding-top:0}
   .r-history .s-lead{font-size:20px;line-height:31px}
   .r-roster{margin-top:48px}
+  .r-roster__intro{margin-top:20px;font-size:26px;line-height:33px}
+  .r-roster__intro + .r-roster{margin-top:32px}
   .r-row{grid-template-columns:56px minmax(0,1fr);gap:8px 16px;padding:24px 16px;margin:0 -16px}
   .r-row__name{font-size:28px;line-height:32px}
   .r-row__photo{width:56px;height:56px;font-size:20px;grid-row:1/3}
