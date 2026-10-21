@@ -182,7 +182,7 @@
 .s-give__arrow::after{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--accent);opacity:0}
 .r-page .s-give__btn .s-give__arrow svg{width:30px;height:30px;padding:0;background:none;border-radius:0;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .r-page .s-give__btn:hover .s-give__arrow{transform:scale(1.07)}
-.r-page .s-give__btn:hover .s-give__arrow svg{transform:translateY(-4px)}
+.r-page .s-give__btn:hover .s-give__arrow svg{transform:translate(3px,-3px)}
 
 /* ---------- Scroll-driven motion ---------- */
 @supports (animation-timeline: view()){
