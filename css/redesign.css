@@ -70,10 +70,11 @@
 .r-hero__art .s-art--pill{left:185px;top:90px;width:150px;height:380px}
 .r-hero__art .s-art--dot{left:205px;top:225px;width:110px;height:110px}
 .r-hero__art .s-art--bar{left:150px;top:280px;width:220px}
-/* Flat top (full width, uncropped), semicircular bottom — the bottom-corner radius equals half the box width/
-   height, so the two corners meet exactly at the base and trace a true semicircle matching the ring below. */
-.r-hero__people{position:absolute;left:30px;top:50px;width:460px;height:460px;border-radius:0 0 230px 230px;overflow:hidden}
-.r-hero__people img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+/* Arch: semicircular top, flat base — the top-corner radius equals half the box width, so the corners meet at the
+   apex and trace a true semicircle matching the ring. The hands-and-devices illustration has a transparent ground,
+   so the arch is filled aqua and the arms rise from the flat base without being clipped. */
+.r-hero__people{position:absolute;left:30px;top:50px;width:460px;height:460px;border-radius:230px 230px 0 0;overflow:hidden;background:var(--accent-cool)}
+.r-hero__people img{display:block;width:100%;height:100%;object-fit:cover;object-position:center bottom}
 
 /* ---------- Opportunity ---------- */
 .r-trio{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,4fr) minmax(0,4fr);gap:48px;margin-top:96px;align-items:start}
